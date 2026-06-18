@@ -1,56 +1,39 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Nova - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* خلفية فضاء احترافية */
+        /* خلفية الفضاء العميق */
         body {
-            background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        /* بطاقات زجاجية */
+        /* كود تأثير الزجاج (Glassmorphism) */
         .glass-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
-            transition: 0.3s;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-        .glass-card:hover { transform: scale(1.05); background: rgba(255, 255, 255, 0.2); }
     </style>
 </head>
-<body class="text-white p-4">
+<body>
 
-    <div class="w-full max-w-sm">
-        <h1 class="text-center text-cyan-300 font-bold mb-8 text-xl">My Telegram Bot Updates</h1>
-
-        <div class="grid grid-cols-2 gap-4">
-            <div class="glass-card p-6 text-center">
-                <div class="text-3xl mb-2">🤖</div>
-                <p class="text-sm">المساعد الذكي</p>
-            </div>
-            <div class="glass-card p-6 text-center">
-                <div class="text-3xl mb-2">📚</div>
-                <p class="text-sm">المكتبة</p>
-            </div>
-            <div class="glass-card p-6 text-center">
-                <div class="text-3xl mb-2">⚡</div>
-                <p class="text-sm">تحدي اليوم</p>
-            </div>
-            <div class="glass-card p-6 text-center">
-                <div class="text-3xl mb-2">🏆</div>
-                <p class="text-sm">السجل</p>
-            </div>
+    <div class="glass-card p-8 w-64 text-center text-white">
+        <div class="mb-4">
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712038.png" alt="Robot" class="w-24 h-24 mx-auto">
         </div>
+        <h3 class="font-bold text-lg mb-1">المساعد الذكي</h3>
+        <p class="text-xs text-gray-300 mb-6">مدرسك الخاص 24/7</p>
+        
+        <button class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-bold text-sm shadow-lg">
+            START CHAT
+        </button>
     </div>
 
 </body>
