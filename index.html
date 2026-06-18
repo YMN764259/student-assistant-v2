@@ -3,43 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Nova Dashboard</title>
+    <title>Tool Nova - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* خلفية الفضاء الفخمة */
-        body { 
-            background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%); 
-            min-height: 100vh; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* خلفية فضاء احترافية */
+        body {
+            background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        /* تأثير الزجاج */
-        .glass { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+        /* بطاقات زجاجية */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: 0.3s;
         }
+        .glass-card:hover { transform: scale(1.05); background: rgba(255, 255, 255, 0.2); }
     </style>
 </head>
-<body class="text-white p-6 flex flex-col items-center">
+<body class="text-white p-4">
 
-    <h1 class="text-xl font-bold text-cyan-400 mb-8">My Telegram Bot Updates webhook</h1>
+    <div class="w-full max-w-sm">
+        <h1 class="text-center text-cyan-300 font-bold mb-8 text-xl">My Telegram Bot Updates</h1>
 
-    <div class="grid grid-cols-2 gap-4 w-full max-w-sm">
-        <div class="glass p-6 rounded-3xl text-center cursor-pointer hover:bg-white/10 transition">
-            <span class="text-3xl">🤖</span>
-            <p class="text-sm mt-2">المساعد الذكي</p>
-        </div>
-        <div class="glass p-6 rounded-3xl text-center cursor-pointer hover:bg-white/10 transition">
-            <span class="text-3xl">📚</span>
-            <p class="text-sm mt-2">المكتبة</p>
-        </div>
-        <div class="glass p-6 rounded-3xl text-center cursor-pointer hover:bg-white/10 transition">
-            <span class="text-3xl">🏆</span>
-            <p class="text-sm mt-2">السجل</p>
-        </div>
-        <div class="glass p-6 rounded-3xl text-center cursor-pointer hover:bg-white/10 transition">
-            <span class="text-3xl">⚡</span>
-            <p class="text-sm mt-2">تحدي اليوم</p>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="glass-card p-6 text-center">
+                <div class="text-3xl mb-2">🤖</div>
+                <p class="text-sm">المساعد الذكي</p>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-3xl mb-2">📚</div>
+                <p class="text-sm">المكتبة</p>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-3xl mb-2">⚡</div>
+                <p class="text-sm">تحدي اليوم</p>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-3xl mb-2">🏆</div>
+                <p class="text-sm">السجل</p>
+            </div>
         </div>
     </div>
 
