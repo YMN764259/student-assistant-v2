@@ -1,31 +1,26 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: radial-gradient(circle at center, #1e1b4b 0%, #000000 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+        body { background: radial-gradient(circle at center, #1e1b4b 0%, #000000 100%); min-height: 100vh; color: white; display: flex; justify-content: center; align-items: center; }
         .glass-box { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; transition: 0.4s; }
-        .glass-box:hover { transform: translateY(-10px); border-color: #06b6d4; }
+        .glass-box:hover { transform: scale(1.05); border-color: #06b6d4; }
     </style>
 </head>
 <body>
-
-    <div class="grid grid-cols-2 gap-6 w-full max-w-lg p-6">
-        <div class="glass-box p-6 flex flex-col items-center">
-            <img src="https://i.imgur.com/example-robot.png" class="w-20 h-20 mb-4"> <h3 class="text-white font-bold">المساعد الذكي</h3>
+    <div class="grid grid-cols-2 gap-6 p-6">
+        <!-- البطاقة 1 -->
+        <div class="glass-box p-8 flex flex-col items-center">
+            <img src="assets/robot.png" class="w-20 h-20 mb-4">
+            <h3 class="font-bold">المساعد الذكي</h3>
         </div>
-        
-        <div class="glass-box p-6 flex flex-col items-center">
-            <img src="https://i.imgur.com/example-book.png" class="w-20 h-20 mb-4"> <h3 class="text-white font-bold">المكتبة</h3>
+        <!-- البطاقة 2 -->
+        <div class="glass-box p-8 flex flex-col items-center">
+            <img src="assets/book.png" class="w-20 h-20 mb-4">
+            <h3 class="font-bold">المكتبة</h3>
         </div>
     </div>
-
 </body>
 </html>
-<div class="glass-box p-6 flex flex-col items-center">
-    <img src="robot.png" 
-         onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Error';" 
-         class="w-20 h-20 mb-4" 
-         alt="Robot Image">
-    <h3 class="text-white font-bold">المساعد الذكي</h3>
-</div>
