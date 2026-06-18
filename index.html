@@ -9,7 +9,7 @@
         body { background: linear-gradient(-45deg, #0f172a, #1e293b, #111827, #0c4a6e); background-size: 400% 400%; animation: bgMove 15s ease infinite; }
         @keyframes bgMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .card:hover { transform: translateY(-8px); transition: .4s; }
+        .card:hover { transform: translateY(-5px); transition: .3s; }
         .fade { animation: fade 0.8s ease; }
         @keyframes fade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -18,60 +18,67 @@
 
     <div id="setup" class="max-w-md mx-auto glass rounded-3xl p-8 shadow-2xl mt-10 fade">
         <h1 class="text-4xl font-bold text-center text-cyan-400 mb-2">StudentAI Pro</h1>
-        <p class="text-center text-gray-300 mb-8">منصة الطالب الذكية المتقدمة</p>
-        
-        <input id="name" type="text" placeholder="اسم الطالب" class="w-full p-4 rounded-xl bg-gray-800 mb-4 outline-none border border-gray-700">
-        <input id="email" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 rounded-xl bg-gray-800 mb-4 outline-none border border-gray-700">
-        
-        <select id="grade" class="w-full p-4 rounded-xl bg-gray-800 mb-6 outline-none border border-gray-700 text-gray-400">
-            <option value="">اختر المرحلة الدراسية</option>
+        <input id="name" type="text" placeholder="اسم الطالب" class="w-full p-4 rounded-xl bg-gray-800 mb-4 border border-gray-700 outline-none">
+        <input id="email" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 rounded-xl bg-gray-800 mb-4 border border-gray-700 outline-none">
+        <select id="grade" class="w-full p-4 rounded-xl bg-gray-800 mb-6 border border-gray-700 text-gray-400">
+            <option value="">المرحلة الدراسية</option>
             <option value="الابتدائي">الابتدائي</option>
             <option value="المتوسط">المتوسط</option>
             <option value="الثانوي">الثانوي</option>
         </select>
-
-        <button onclick="startSystem()" class="w-full bg-cyan-600 hover:bg-cyan-500 p-4 rounded-xl font-bold text-lg shadow-lg">دخول النظام</button>
+        <button onclick="startSystem()" class="w-full bg-cyan-600 hover:bg-cyan-500 p-4 rounded-xl font-bold">دخول النظام</button>
     </div>
 
     <div id="dashboard" class="hidden max-w-5xl mx-auto fade">
-        <div class="glass rounded-3xl p-8 mb-6 flex flex-wrap justify-between items-center">
+        <div class="glass rounded-3xl p-8 mb-6 flex justify-between items-center">
             <div>
                 <h1 id="welcome" class="text-3xl font-bold text-cyan-400"></h1>
                 <p id="grade-info" class="text-gray-300"></p>
             </div>
-            <div class="text-center">
-                <div id="clock" class="text-3xl font-bold text-green-400"></div>
-                <div id="date" class="text-gray-400"></div>
-            </div>
-        </div>
+            <button onclick="logout()" class="bg-red-600/50 hover:bg-red-600 px-4 py-2 rounded-xl text-sm">تسجيل خروج</button>
         </div>
 
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div onclick="openModal('المساعد الذكي')" class="card glass p-6 rounded-3xl text-center cursor-pointer">🤖 المساعد الذكي</div>
+            <div onclick="openModal('المكتبة')" class="card glass p-6 rounded-3xl text-center cursor-pointer">📚 المكتبة</div>
+            <div onclick="openModal('تحدي اليوم')" class="card glass p-6 rounded-3xl text-center cursor-pointer">⚡ تحدي اليوم</div>
+            <div onclick="openModal('السجل')" class="card glass p-6 rounded-3xl text-center cursor-pointer">🏆 السجل</div>
+        </div>
+    </div>
+
+    <div id="modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center p-4">
+        <div class="glass p-8 rounded-3xl w-full max-w-sm text-center">
+            <h2 id="modal-title" class="text-2xl font-bold mb-4 text-cyan-400"></h2>
+            <button onclick="closeModal()" class="mt-4 bg-cyan-600 px-8 py-2 rounded-xl">إغلاق</button>
+        </div>
+    </div>
+
     <script>
+        window.onload = function() {
+            if (localStorage.getItem("studentName")) {
+                document.getElementById("setup").classList.add("hidden");
+                document.getElementById("dashboard").classList.remove("hidden");
+                document.getElementById("welcome").innerHTML = "أهلاً " + localStorage.getItem("studentName");
+            }
+        };
+
         function startSystem() {
             let name = document.getElementById("name").value;
             let email = document.getElementById("email").value;
-            let grade = document.getElementById("grade").value;
-
-            // التحقق من البريد الإلكتروني
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if(name === "" || email === "" || grade === "") { 
-                alert("يرجى تعبئة جميع الحقول!"); 
-                return; 
+            let code = Math.floor(1000 + Math.random() * 9000);
+            if(confirm("تم إرسال كود التحقق " + code + ". هل توافق؟")) {
+                localStorage.setItem("studentName", name);
+                location.reload();
             }
-            if(!emailPattern.test(email)) {
-                alert("الرجاء إدخال بريد إلكتروني صحيح!");
-                return;
-            }
-            
-            localStorage.setItem("studentName", name);
-            localStorage.setItem("studentGrade", grade);
-            
-            document.getElementById("setup").classList.add("hidden");
-            document.getElementById("dashboard").classList.remove("hidden");
-            document.getElementById("welcome").innerHTML = "مرحباً يا " + name + " 👋";
-            document.getElementById("grade-info").innerHTML = "أنت في المرحلة: " + grade;
         }
+
+        function openModal(title) {
+            document.getElementById("modal-title").innerText = title;
+            document.getElementById("modal").classList.remove("hidden");
+        }
+
+        function closeModal() { document.getElementById("modal").classList.add("hidden"); }
+        function logout() { localStorage.clear(); location.reload(); }
     </script>
 </body>
 </html>
