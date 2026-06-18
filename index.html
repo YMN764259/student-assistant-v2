@@ -16,100 +16,62 @@
 </head>
 <body class="text-white min-h-screen p-5 font-sans">
 
-    <!-- شاشة تسجيل الدخول -->
     <div id="setup" class="max-w-md mx-auto glass rounded-3xl p-8 shadow-2xl mt-10 fade">
         <h1 class="text-4xl font-bold text-center text-cyan-400 mb-2">StudentAI Pro</h1>
         <p class="text-center text-gray-300 mb-8">منصة الطالب الذكية المتقدمة</p>
+        
         <input id="name" type="text" placeholder="اسم الطالب" class="w-full p-4 rounded-xl bg-gray-800 mb-4 outline-none border border-gray-700">
-        <input id="email" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 rounded-xl bg-gray-800 mb-6 outline-none border border-gray-700">
+        <input id="email" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 rounded-xl bg-gray-800 mb-4 outline-none border border-gray-700">
+        
+        <select id="grade" class="w-full p-4 rounded-xl bg-gray-800 mb-6 outline-none border border-gray-700 text-gray-400">
+            <option value="">اختر المرحلة الدراسية</option>
+            <option value="الابتدائي">الابتدائي</option>
+            <option value="المتوسط">المتوسط</option>
+            <option value="الثانوي">الثانوي</option>
+        </select>
+
         <button onclick="startSystem()" class="w-full bg-cyan-600 hover:bg-cyan-500 p-4 rounded-xl font-bold text-lg shadow-lg">دخول النظام</button>
     </div>
 
-    <!-- لوحة التحكم -->
     <div id="dashboard" class="hidden max-w-5xl mx-auto fade">
         <div class="glass rounded-3xl p-8 mb-6 flex flex-wrap justify-between items-center">
             <div>
                 <h1 id="welcome" class="text-3xl font-bold text-cyan-400"></h1>
-                <p class="text-gray-300">مرحباً بك في لوحة التحكم الذكية</p>
+                <p id="grade-info" class="text-gray-300"></p>
             </div>
             <div class="text-center">
                 <div id="clock" class="text-3xl font-bold text-green-400"></div>
                 <div id="date" class="text-gray-400"></div>
             </div>
         </div>
-
-        <div class="grid md:grid-cols-4 gap-4 mb-8">
-            <div class="card glass p-6 rounded-2xl border-l-4 border-blue-500">
-                <h3 class="text-gray-400">المستوى</h3>
-                <h1 class="text-4xl font-bold">12</h1>
-            </div>
-            <div class="card glass p-6 rounded-2xl border-l-4 border-green-500">
-                <h3 class="text-gray-400">XP</h3>
-                <h1 id="xp-display" class="text-4xl font-bold">0</h1>
-            </div>
-            <div class="card glass p-6 rounded-2xl border-l-4 border-purple-500">
-                <h3 class="text-gray-400">الإنجازات</h3>
-                <h1 class="text-4xl font-bold">24</h1>
-            </div>
-            <div class="card glass p-6 rounded-2xl border-l-4 border-orange-500">
-                <h3 class="text-gray-400">ساعات الدراسة</h3>
-                <h1 class="text-4xl font-bold">87</h1>
-            </div>
         </div>
-
-        <div class="glass rounded-2xl p-8">
-            <h2 class="text-2xl font-bold text-cyan-400 mb-6">المهام اليومية</h2>
-            <div class="grid md:grid-cols-3 gap-4">
-                <button onclick="addXP(50)" class="bg-gray-800 p-5 rounded-xl hover:bg-gray-700 transition">✅ حفظ 20 كلمة (50 XP)</button>
-                <button onclick="addXP(100)" class="bg-gray-800 p-5 rounded-xl hover:bg-gray-700 transition">🧮 حل 10 مسائل (100 XP)</button>
-                <button onclick="addXP(30)" class="bg-gray-800 p-5 rounded-xl hover:bg-gray-700 transition">🔬 مراجعة العلوم (30 XP)</button>
-            </div>
-        </div>
-    </div>
-
-    <footer class="text-center mt-12 text-gray-500 text-sm">
-        تم التطوير بواسطة يمني حميد © 2026
-    </footer>
 
     <script>
-        // التحقق عند التحميل
-        window.onload = function() {
-            let savedName = localStorage.getItem("studentName");
-            if (savedName) {
-                document.getElementById("setup").classList.add("hidden");
-                document.getElementById("dashboard").classList.remove("hidden");
-                document.getElementById("welcome").innerHTML = "أهلاً بعودتك، " + savedName + " 👋";
-                document.getElementById("xp-display").innerText = localStorage.getItem("xp") || 0;
-            }
-        };
-
         function startSystem() {
             let name = document.getElementById("name").value;
             let email = document.getElementById("email").value;
-            if(name === "" || email === "") { alert("يرجى إدخال الاسم والبريد الإلكتروني"); return; }
+            let grade = document.getElementById("grade").value;
+
+            // التحقق من البريد الإلكتروني
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if(name === "" || email === "" || grade === "") { 
+                alert("يرجى تعبئة جميع الحقول!"); 
+                return; 
+            }
+            if(!emailPattern.test(email)) {
+                alert("الرجاء إدخال بريد إلكتروني صحيح!");
+                return;
+            }
             
             localStorage.setItem("studentName", name);
-            localStorage.setItem("studentEmail", email);
+            localStorage.setItem("studentGrade", grade);
             
             document.getElementById("setup").classList.add("hidden");
             document.getElementById("dashboard").classList.remove("hidden");
-            document.getElementById("welcome").innerHTML = "مرحباً بك يا " + name + " 👋";
+            document.getElementById("welcome").innerHTML = "مرحباً يا " + name + " 👋";
+            document.getElementById("grade-info").innerHTML = "أنت في المرحلة: " + grade;
         }
-
-        function addXP(amount) {
-            let currentXP = parseInt(localStorage.getItem("xp")) || 0;
-            currentXP += amount;
-            localStorage.setItem("xp", currentXP);
-            document.getElementById("xp-display").innerText = currentXP;
-        }
-
-        function updateClock() {
-            const now = new Date();
-            document.getElementById("clock").innerHTML = now.toLocaleTimeString("ar-SA");
-            document.getElementById("date").innerHTML = now.toLocaleDateString("ar-SA");
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
     </script>
 </body>
 </html>
