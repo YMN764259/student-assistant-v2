@@ -72,14 +72,28 @@
     </footer>
 
     <script>
+        // التحقق عند التحميل
+        window.onload = function() {
+            let savedName = localStorage.getItem("studentName");
+            if (savedName) {
+                document.getElementById("setup").classList.add("hidden");
+                document.getElementById("dashboard").classList.remove("hidden");
+                document.getElementById("welcome").innerHTML = "أهلاً بعودتك، " + savedName + " 👋";
+                document.getElementById("xp-display").innerText = localStorage.getItem("xp") || 0;
+            }
+        };
+
         function startSystem() {
             let name = document.getElementById("name").value;
             let email = document.getElementById("email").value;
-            if(name === "" || email === "") { alert("يرجى إدخال البيانات كاملة"); return; }
+            if(name === "" || email === "") { alert("يرجى إدخال الاسم والبريد الإلكتروني"); return; }
+            
             localStorage.setItem("studentName", name);
+            localStorage.setItem("studentEmail", email);
+            
             document.getElementById("setup").classList.add("hidden");
             document.getElementById("dashboard").classList.remove("hidden");
-            document.getElementById("welcome").innerHTML = "مرحباً " + name + " 👋";
+            document.getElementById("welcome").innerHTML = "مرحباً بك يا " + name + " 👋";
         }
 
         function addXP(amount) {
